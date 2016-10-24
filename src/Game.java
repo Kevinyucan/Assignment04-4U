@@ -68,6 +68,7 @@ public class Game {
         }
         
         
+        
         while (true) {
             //if dalek1 is on the same point at dalek2
             if (dalek1.getRow() == dalek2.getRow() && dalek1.getCol() == dalek2.getCol()) {
@@ -137,12 +138,12 @@ public class Game {
             //if all three dalek's have crashed, the doctor wins!
             if(dalek1.hasCrashed() && dalek2.hasCrashed() && dalek3.hasCrashed()){
                 board.displayMessage("The Doctor wins!");
-                //or if any of the daleks catches the doctor
-            }else if(dalek1.getRow() == doctor.getRow() && dalek1.getCol() == doctor.getCol()
+                // if any of the daleks catches the doctor
+            } if(dalek1.getRow() == doctor.getRow() && dalek1.getCol() == doctor.getCol()
                     ||dalek2.getRow() == doctor.getRow() && dalek2.getCol() == doctor.getCol()
                     ||dalek3.getRow() == doctor.getRow() && dalek3.getCol() == doctor.getCol()){
                 //display game over message
-                board.displayMessage("Oh no, Dalek's have won! Humanity is doomed!");
+                board.displayMessage("Oh no, Dalek's have won! The Universe is doomed!");
                 //put a yellow peg at where doctor was captured
                 board.putPeg(Color.YELLOW, doctor.getRow(), doctor.getCol());
                 //break the loop, since the doctor can no longer move

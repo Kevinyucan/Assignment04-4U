@@ -40,20 +40,34 @@ public class Dalek {
             this.col++;
         }
     }
-        System.out.println(this.row + ", " + this.col);
+        
     }
     
+    /**
+     * Set dalekCrash boolean to true
+     */
     public void crash(){
         dalekCrash = true;
     }
     
+    /**
+     * Returns if the dalek has crashed or not
+     * @return true if dalek has crashed
+     */
     public boolean hasCrashed(){
         return dalekCrash;
     }
-    
+    /**
+     * Returns the row of the dalek
+     * @return the row of the dalek
+     */
     public int getRow(){
         return this.row;
 }
+    /**
+     * Returns the column of the dalek
+     * @return the column of the dalek
+     */
     public int getCol(){
         return this.col;
     }        
