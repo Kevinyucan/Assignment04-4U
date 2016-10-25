@@ -17,7 +17,7 @@ public class Dalek {
         this.col = col; 
     }
     
-    public void move(Doctor doctor){
+    public void advanceTowards(Doctor doctor){
         
         int docRow = doctor.getRow();
           int docCol = doctor.getCol();
