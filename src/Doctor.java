@@ -8,6 +8,7 @@
  * @author yuk4142
  */
 public class Doctor {
+    //create private integer variables for storing row and col of doctor
     private int row;
     private int col;
     
@@ -55,10 +56,16 @@ public class Doctor {
         } 
      
     }
-    
+    /**
+     * Returns the row of the doctor
+     * @return the row of the doctor
+     */
     public int getRow(){
         return this.row;
-}
+}   /**
+ * Returns the column of the doctor
+ * @return the column of the doctor
+ */
     public int getCol(){
         return this.col;
     }        

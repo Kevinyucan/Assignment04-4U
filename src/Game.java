@@ -26,39 +26,50 @@ public class Game {
      
         
         //create three new dalek's also at random locations on the board, and set each dalek position as a black peg
-        Dalek dalek1 = new Dalek(6,6);
-        Dalek dalek2 = new Dalek(6,6);
-        Dalek dalek3 = new Dalek((int) (Math.random() * 12), (int) (Math.random() * 12));
+        Dalek dalek1 = new Dalek((int) (Math.random() * 12),(int) (Math.random() * 12));
+        Dalek dalek2 = new Dalek((int) (Math.random() * 12),(int) (Math.random() * 12));
+        Dalek dalek3 = new Dalek((int) (Math.random() * 12),(int) (Math.random() * 12));
         
+        //while doctor is spawned on top of any of the daleks, or if any of the dalek's spawned on top of each other
+        while(doctor.getRow()==dalek1.getRow() && doctor.getCol()==dalek1.getCol()||
+                doctor.getRow()==dalek2.getRow() && doctor.getCol()==dalek2.getCol()||
+                doctor.getRow()==dalek3.getRow() && doctor.getCol()==dalek3.getCol()||
+                
+                dalek1.getRow() == dalek2.getRow() && dalek1.getCol() == dalek2.getCol()||
+                dalek1.getRow() == dalek3.getRow() && dalek1.getCol() == dalek3.getCol()||
+                dalek3.getRow() == dalek2.getRow() && dalek3.getCol() == dalek2.getCol()
+                ){
         
-        
-        //if doctor accidentally spawns on the same position as dalek1, re-randomize the doctor's position
-        while(doctor.getRow()==dalek1.getRow() && doctor.getCol()==dalek1.getCol()){
+//        //if doctor accidentally spawns on the same position as dalek1, re-randomize the doctor's position
+        if(doctor.getRow()==dalek1.getRow() && doctor.getCol()==dalek1.getCol()){
             doctor = new Doctor((int) (Math.random() * 12), (int) (Math.random() * 12));
         }
         //if doctor accidentally spawns on the same position as dalek2, re-randomize the doctor's position
-        while(doctor.getRow()==dalek2.getRow() && doctor.getCol()==dalek2.getCol()){
+        if(doctor.getRow()==dalek2.getRow() && doctor.getCol()==dalek2.getCol()){
             doctor = new Doctor((int) (Math.random() * 12), (int) (Math.random() * 12));
         }
         //if doctor accidentally spawns on the same position as dalek3, re-randomize the doctor's position
-        while(doctor.getRow()==dalek3.getRow() && doctor.getCol()==dalek3.getCol()){
+        if(doctor.getRow()==dalek3.getRow() && doctor.getCol()==dalek3.getCol()){
             doctor = new Doctor((int) (Math.random() * 12), (int) (Math.random() * 12));
         }
         
         
         //if dalek's acidentally spawn on each other, re-randomize their positions
-        while(dalek1.getRow() == dalek2.getRow() && dalek1.getCol() == dalek2.getCol()){
+        if(dalek1.getRow() == dalek2.getRow() && dalek1.getCol() == dalek2.getCol()){
         dalek1 = new Dalek((int) (Math.random() * 12), (int) (Math.random() * 12));
         }
         //if dalek's acidentally spawn on each other, re-randomize their positions
-        while(dalek1.getRow() == dalek3.getRow() && dalek1.getCol() == dalek3.getCol()){
+        if(dalek1.getRow() == dalek3.getRow() && dalek1.getCol() == dalek3.getCol()){
           dalek1 = new Dalek((int) (Math.random() * 12), (int) (Math.random() * 12));
         }
         //if dalek's acidentally spawn on each other, re-randomize their positions
-        while(dalek3.getRow() == dalek2.getRow() && dalek3.getCol() == dalek2.getCol()){
+        if(dalek3.getRow() == dalek2.getRow() && dalek3.getCol() == dalek2.getCol()){
             dalek2 = new Dalek((int) (Math.random() * 12), (int) (Math.random() * 12));
         }
         
+        
+        }
+        //update position of all pegs that represent the 3 dalek's
         board.putPeg(Color.BLACK, dalek1.getRow(), dalek1.getCol());
         board.putPeg(Color.BLACK, dalek2.getRow(), dalek2.getCol());
         board.putPeg(Color.BLACK, dalek3.getRow(), dalek3.getCol());
@@ -89,12 +100,8 @@ public class Game {
                 board.putPeg(Color.RED, dalek2.getRow(), dalek2.getCol());
                 
             }
-            
-            //if all three dalek's have crashed, the doctor wins!
-            if(dalek1.hasCrashed() && dalek2.hasCrashed() && dalek3.hasCrashed()){
-                board.displayMessage("The Doctor wins!");
-                // if any of the daleks catches the doctor
-            } if(dalek1.getRow() == doctor.getRow() && dalek1.getCol() == doctor.getCol()
+            //if any of the dalek's catch the doctor
+            if(dalek1.getRow() == doctor.getRow() && dalek1.getCol() == doctor.getCol()
                     ||dalek2.getRow() == doctor.getRow() && dalek2.getCol() == doctor.getCol()
                     ||dalek3.getRow() == doctor.getRow() && dalek3.getCol() == doctor.getCol()){
                 //display game over message
@@ -104,6 +111,11 @@ public class Game {
                 //break the loop, since the doctor can no longer move
                 break;
             }
+            //else if all three dalek's have crashed, the doctor wins!
+            else if(dalek1.hasCrashed() && dalek2.hasCrashed() && dalek3.hasCrashed()){
+                board.displayMessage("The Doctor wins!");
+               
+            } 
             
             //get a click position on the board
             Coordinate click = board.getClick();
@@ -121,8 +133,8 @@ public class Game {
             board.removePeg(dalek1.getRow(), dalek1.getCol());
             //let the move method get the new coords for dalek1 accoring to where the doctor is
             dalek1.advanceTowards(doctor);
-            //place the red dalek1 peg at the new position
-            board.putPeg(Color.BLACK, dalek1.getRow(), dalek1.getCol());
+          
+            
         }
             
             //if dalek2 hasn't crashed yet(move it towards doctor)
@@ -131,8 +143,8 @@ public class Game {
             board.removePeg(dalek2.getRow(), dalek2.getCol());
             //let the move method get the new coords for dalek2 accoring to where the doctor is
             dalek2.advanceTowards(doctor);
-            //place the red dalek2 peg at the new position
-            board.putPeg(Color.BLACK, dalek2.getRow(), dalek2.getCol());
+            
+            
             }
             
             //if dalek3 hasn't crashed yet(move it towards doctor)
@@ -141,11 +153,13 @@ public class Game {
             board.removePeg(dalek3.getRow(), dalek3.getCol());
             //let the move method get the new coords for dalek3 accoring to where the doctor is
             dalek3.advanceTowards(doctor);
-            //place the red dalek3 peg at the new position
-            board.putPeg(Color.BLACK, dalek3.getRow(), dalek3.getCol());
+            
+            
             }
-            
-            
+            //place all updated pegs for dalek's down
+            board.putPeg(Color.BLACK, dalek1.getRow(), dalek1.getCol());
+            board.putPeg(Color.BLACK, dalek2.getRow(), dalek2.getCol());
+            board.putPeg(Color.BLACK, dalek3.getRow(), dalek3.getCol());
         }
     }
 }

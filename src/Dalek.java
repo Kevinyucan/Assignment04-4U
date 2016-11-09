@@ -8,8 +8,10 @@
  * @author yuk4142
  */
 public class Dalek {
+    //create private integer variables for storing row and col of dalek
     private int col;
     private int row;
+    //create boolean for storing if dalek has crashed or not
     private boolean dalekCrash = false;
     public Dalek(int row, int col){
         //initialize instance variables
@@ -17,6 +19,10 @@ public class Dalek {
         this.col = col; 
     }
     
+    /**
+     * Updates dalek's coords by advancing to doctor
+     * @param doctor the coordinate the dalek needs to advance towards
+     */
     public void advanceTowards(Doctor doctor){
         
         int docRow = doctor.getRow();
